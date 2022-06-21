@@ -2,7 +2,9 @@
 Public repo for Optimization of Portfolio Partitioning for Chain-Ladder Reserve Estimates article.
 Prototype of chain-ladder segmentation optimizer
 The main function runner optimizes segmentation ussing:
+
 a) Greedy algorithm
+
 b) Exhaustive algorithm
 
 
@@ -20,19 +22,21 @@ All these directories are set in <config_file>
 ## Output
 - Output is displayed in console and as a interactive plot (for greedy algorithm only)
 Example of an output:
-#For both exhaustive as well a a greedy algorithm, a table of the optimal result is printed: 
+For both exhaustive as well a a greedy algorithm, a table of the optimal result is printed: 
   
-                          rule  	  	               err      loss likelihood   penalty leaf_cnt
-1 LoBcnt_1==1|LoBcnt_4==1 , LoBcnt_2==1 , LoBcnt_3==1 1.910843e+12 0.9191702  0.7542407 0.1649294        3
-
+| rule  | err | loss | likelihood | penalty | leaf_cnt |
+| ------------- | ------------- |------------- |------------- |------------- |------------- |
+| LoBcnt_1==1+LoBcnt_4==1 , LoBcnt_2==1 , LoBcnt_3==1  | 1.910843e+12  |0.9191702  |0.7542407  |0.1649294  |3  |
+  
 For greedy algorithm, a scheme is printed 
- Total    
+ 
+  Total    
   
   ¦--LoBcnt_2==0    
   
-  ¦   ¦--LoBcnt_3==0
+  ¦ &nbsp; &nbsp; &nbsp;¦--LoBcnt_3==0
   
-  ¦   °--LoBcnt_3==1
+  ¦ &nbsp; &nbsp; &nbsp;°--LoBcnt_3==1
   
   °--LoBcnt_2==1 
   
@@ -45,7 +49,7 @@ loss ... Value of the loss function (loss =likelihood + penalty)
 leaf_cnt ... Number of segments in this partitioning.
 
 
-##<input_data_file>
+## <input_data_file>
 Input data file is stored as a csv and corresponds with usual reserving data input in a long format containing obligatory:
 'id'...Claim id 
 'occ_yr'...Occurrence year
@@ -61,24 +65,37 @@ For exhaustive search algorithm, there is only one categorical segmentation vari
 
 
 
-##Configuration file <config_file>
+## Configuration file <config.r>
 Config file contains all names and algorithm parameters. 
 
 <wd_data> ... Relative path to data (string)
+  
 <wd_functions> ... Relative path to application functions (string)
+  
 <input_data_file> ... Name of the input file (string)
+  
 <set_algorithm> ... A string value to switch between the optimization algorithms. Possibilities:"exhaustive" or "greedy". These algorithms require some different inputs.
+  
 <size_var> ... Name of the triangle variable for which the reserve is to be calculated.(string)
+  
 <categ_var_exhaustive> ... Only for exhaustive algorithm. A categorical variable, for which all potential partitionings are to be created and evalueated.(string)
+  
 <metric_var>, <categ_var_enc>, <categ_var> ...  String vectors reopresenting categorization of segmentation variables described in section "input_data_file" above. 
+  
 <use_set_var> ... Vector of strings defining subset of variables selected to be used for optimization. All variables selected must be contained in exactly one of the three categories <metric_var>, <categ_var_enc>, <categ_var>.
 
 <trunc_penalty_mean> ... A numeric value between [0-1]. Use truncation of a given percentage when calculating mean penalty term. 
+  
 <penalty_fun> ... A string value. Set to "median" if median is desired instead of (truncated) mean in penalty term.  Use if mean penalty is numerically unstable. If not defined, truncated mean is used.
-<variance_power> ... An integer used as the power parameter for variance function (Var = sigma * mu^variance_power). Recommended value (consistent with Mack's model) is 1. 
+  
+<variance_power> ... An integer used as the power parameter for variance function (Var = sigma * mu^variance_power). Recommended value (consistent with Mack's model) is 1.
+  
 <ignore_dev> ...An integer defining how many of the corner values should be omitted in triangles. Recommendend value is 2.
 
 <prob_grid> ... Numerical vector defining a grid of percentiles for numerical variables over which optimal value is searched for. Relevant for greedy algorithm only.
+  
 <min_volume> ... A stopping criterion of the optimization. Algorithm does not split if node volume is smaller than this value.
+  
 <calc_penalty> ... A logical value. Set "T" to include also penalty term.
+  
 <calc_future> ... A logical value. Set "T" to calculate also error for future predictions. If the value is "T", future data (=lower right triangle data) must be included in the input data.
