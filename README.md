@@ -21,15 +21,21 @@ All these directories are set in <config_file>
 - Output is displayed in console and as a interactive plot (for greedy algorithm only)
 Example of an output:
 #For both exhaustive as well a a greedy algorithm, a table of the optimal result is printed: 
+  
                           rule  	  	               err      loss likelihood   penalty leaf_cnt
 1 LoBcnt_1==1|LoBcnt_4==1 , LoBcnt_2==1 , LoBcnt_3==1 1.910843e+12 0.9191702  0.7542407 0.1649294        3
 
 For greedy algorithm, a scheme is printed 
- Total              
+ Total    
+  
   ¦--LoBcnt_2==0    
+  
   ¦   ¦--LoBcnt_3==0
+  
   ¦   °--LoBcnt_3==1
+  
   °--LoBcnt_2==1 
+  
 and a graphical tree plot containing also relative volume of the nodes are added. 
 
 Optimized partitioning
